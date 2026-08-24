@@ -93,6 +93,7 @@ export function CoverflowCarousel({
 
   const [selected, setSelected] = React.useState(0);
   const [zoomed, setZoomed] = React.useState<CoverflowSlide | null>(null);
+  const [cardHeight, setCardHeight] = React.useState<number | null>(null);
   const downPosRef = React.useRef(0);
   const movedRef = React.useRef(false);
 
@@ -259,6 +260,7 @@ export function CoverflowCarousel({
       const card = cardRefs.current[0];
       if (!card) return;
       widthRef.current = card.offsetWidth;
+      setCardHeight(card.offsetHeight);
       paint();
     };
 
@@ -316,7 +318,7 @@ export function CoverflowCarousel({
               nudge(1);
             }
           }}
-          className="cursor-grab overflow-hidden py-10 outline-none active:cursor-grabbing"
+          className="cursor-grab overflow-hidden py-6 outline-none active:cursor-grabbing sm:py-10"
           style={{
             perspective: `calc(var(--cf-card) * ${perspective})`,
             touchAction: "pan-y",
@@ -326,7 +328,7 @@ export function CoverflowCarousel({
             ref={trackRef}
             className="relative mx-auto"
             style={{
-              height: "var(--cf-card)",
+              height: cardHeight ? `${cardHeight}px` : "var(--cf-card)",
               transformStyle: "preserve-3d",
             }}
           >
