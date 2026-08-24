@@ -34,15 +34,27 @@ export interface CoverflowCarouselProps {
   cardClassName?: string;
 }
 
+function useIsMobileViewport() {
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const mql = window.matchMedia("(max-width: 640px)");
+    const onChange = () => setIsMobile(mql.matches);
+    onChange();
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+  return isMobile;
+}
+
 export function CoverflowCarousel({
   slides,
-  rotate = 44,
-  depth = 0.6,
-  perspective = 3,
+  rotate: rotateProp,
+  depth: depthProp,
+  perspective: perspectiveProp,
   falloff = 0.56,
-  fade = 0.1,
-  cardWidth = "clamp(148px, 22vw, 260px)",
-  gap = 0.05,
+  fade: fadeProp,
+  cardWidth: cardWidthProp,
+  gap: gapProp,
   loop = true,
   showCaption = false,
   showPagination = false,
@@ -51,7 +63,17 @@ export function CoverflowCarousel({
   className,
   cardClassName,
 }: CoverflowCarouselProps) {
+  const isMobile = useIsMobileViewport();
+
+  const rotate = rotateProp ?? (isMobile ? 30 : 44);
+  const depth = depthProp ?? (isMobile ? 0.4 : 0.6);
+  const perspective = perspectiveProp ?? (isMobile ? 2.4 : 3);
+  const fade = fadeProp ?? (isMobile ? 0.28 : 0.1);
+  const gap = gapProp ?? (isMobile ? 0.14 : 0.05);
+  const cardWidth = cardWidthProp ?? (isMobile ? "min(62vw, 280px)" : "clamp(148px, 22vw, 260px)");
+
   const count = slides.length;
+
 
   const frameRef = React.useRef<HTMLDivElement | null>(null);
   const trackRef = React.useRef<HTMLDivElement | null>(null);
