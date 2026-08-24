@@ -619,17 +619,37 @@ h1, h2, h3, h4 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
-  .section { padding: 56px 0; }
+  .section { padding: 48px 0; }
   .carousel-slide { width: 210px; }
   .testimonial-card { width: 260px; }
   .footer-bottom { justify-content: center; }
   .purchase-toast { left: 10px; right: 10px; max-width: none; }
+
+  /* Mobile lightness: menos compositing, sombras e efeitos caros */
+  .preview-carousel,
+  .testimonials-carousel {
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .carousel-track { animation-duration: 60s; }
+  .testimonials-track { animation-duration: 80s; }
+  .hero-mockup-img { filter: none; }
+  .carousel-slide,
+  .testimonial-card { box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08); }
+  .purchase-toast { box-shadow: 0 8px 24px rgba(16, 24, 40, 0.14); }
+  .offer-card {
+    box-shadow: 0 6px 20px rgba(11, 27, 52, 0.12);
+    background: var(--bg-primary);
+  }
+  .offer-card .btn-cta--full { animation: none; }
+  [style*="backdrop-filter"] { backdrop-filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .carousel-track, .testimonials-track { animation: none; }
   html { scroll-behavior: auto; }
 }
+
 
 /* =========================================================
    Offer card (price reveal) — destaque
