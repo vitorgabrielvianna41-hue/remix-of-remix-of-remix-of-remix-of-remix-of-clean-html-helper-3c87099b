@@ -34,15 +34,27 @@ export interface CoverflowCarouselProps {
   cardClassName?: string;
 }
 
+function useIsMobileViewport() {
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const mql = window.matchMedia("(max-width: 640px)");
+    const onChange = () => setIsMobile(mql.matches);
+    onChange();
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+  return isMobile;
+}
+
 export function CoverflowCarousel({
   slides,
-  rotate = 44,
-  depth = 0.6,
-  perspective = 3,
+  rotate: rotateProp,
+  depth: depthProp,
+  perspective: perspectiveProp,
   falloff = 0.56,
-  fade = 0.1,
-  cardWidth = "clamp(148px, 22vw, 260px)",
-  gap = 0.05,
+  fade: fadeProp,
+  cardWidth: cardWidthProp,
+  gap: gapProp,
   loop = true,
   showCaption = false,
   showPagination = false,
@@ -51,7 +63,17 @@ export function CoverflowCarousel({
   className,
   cardClassName,
 }: CoverflowCarouselProps) {
+  const isMobile = useIsMobileViewport();
+
+  const rotate = rotateProp ?? (isMobile ? 30 : 44);
+  const depth = depthProp ?? (isMobile ? 0.4 : 0.6);
+  const perspective = perspectiveProp ?? (isMobile ? 2.4 : 3);
+  const fade = fadeProp ?? (isMobile ? 0.28 : 0.1);
+  const gap = gapProp ?? (isMobile ? 0.14 : 0.05);
+  const cardWidth = cardWidthProp ?? (isMobile ? "min(62vw, 280px)" : "clamp(148px, 22vw, 260px)");
+
   const count = slides.length;
+
 
   const frameRef = React.useRef<HTMLDivElement | null>(null);
   const trackRef = React.useRef<HTMLDivElement | null>(null);
@@ -71,6 +93,7 @@ export function CoverflowCarousel({
 
   const [selected, setSelected] = React.useState(0);
   const [zoomed, setZoomed] = React.useState<CoverflowSlide | null>(null);
+  const [cardHeight, setCardHeight] = React.useState<number | null>(null);
   const downPosRef = React.useRef(0);
   const movedRef = React.useRef(false);
 
@@ -237,6 +260,7 @@ export function CoverflowCarousel({
       const card = cardRefs.current[0];
       if (!card) return;
       widthRef.current = card.offsetWidth;
+      setCardHeight(card.offsetHeight);
       paint();
     };
 
@@ -294,7 +318,7 @@ export function CoverflowCarousel({
               nudge(1);
             }
           }}
-          className="cursor-grab overflow-hidden py-10 outline-none active:cursor-grabbing"
+          className="cursor-grab overflow-hidden py-6 outline-none active:cursor-grabbing sm:py-10"
           style={{
             perspective: `calc(var(--cf-card) * ${perspective})`,
             touchAction: "pan-y",
@@ -304,7 +328,7 @@ export function CoverflowCarousel({
             ref={trackRef}
             className="relative mx-auto"
             style={{
-              height: "var(--cf-card)",
+              height: cardHeight ? `${cardHeight}px` : "var(--cf-card)",
               transformStyle: "preserve-3d",
             }}
           >
@@ -336,6 +360,7 @@ export function CoverflowCarousel({
                   alt={slide.alt}
                   draggable={false}
                   loading="lazy"
+                  decoding="async"
                   className="size-full select-none object-cover"
                 />
               </div>
@@ -349,7 +374,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Anterior"
               onClick={() => nudge(-1)}
-              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
+              className="absolute left-1 top-1/2 z-[200] max-sm:hidden sm:left-3 -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -357,7 +382,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Próximo"
               onClick={() => nudge(1)}
-              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
+              className="absolute right-1 top-1/2 z-[200] max-sm:hidden sm:right-3 -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -385,7 +410,7 @@ export function CoverflowCarousel({
       )}
 
       {showPagination && (
-        <div className="mt-5 flex items-center justify-center gap-2">
+        <div className="mt-5 flex items-center justify-center gap-3">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -393,7 +418,7 @@ export function CoverflowCarousel({
               aria-label={`Ir para o slide ${index + 1}`}
               onClick={() => goTo(index)}
               className={cn(
-                "size-2 rounded-full bg-current transition-opacity",
+                "size-2.5 rounded-full bg-current transition-opacity",
                 index === selected ? "opacity-100" : "opacity-30",
               )}
             />
