@@ -358,6 +358,7 @@ export function CoverflowCarousel({
                   alt={slide.alt}
                   draggable={false}
                   loading="lazy"
+                  decoding="async"
                   className="size-full select-none object-cover"
                 />
               </div>
@@ -371,7 +372,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Anterior"
               onClick={() => nudge(-1)}
-              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
+              className="absolute left-1 top-1/2 z-[200] max-sm:hidden sm:left-3 -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -379,7 +380,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Próximo"
               onClick={() => nudge(1)}
-              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
+              className="absolute right-1 top-1/2 z-[200] max-sm:hidden sm:right-3 -translate-y-1/2 rounded-full bg-white/80 p-2 text-slate-900 backdrop-blur transition hover:bg-white"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -407,7 +408,7 @@ export function CoverflowCarousel({
       )}
 
       {showPagination && (
-        <div className="mt-5 flex items-center justify-center gap-2">
+        <div className="mt-5 flex items-center justify-center gap-3">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -415,7 +416,7 @@ export function CoverflowCarousel({
               aria-label={`Ir para o slide ${index + 1}`}
               onClick={() => goTo(index)}
               className={cn(
-                "size-2 rounded-full bg-current transition-opacity",
+                "size-2.5 rounded-full bg-current transition-opacity",
                 index === selected ? "opacity-100" : "opacity-30",
               )}
             />
