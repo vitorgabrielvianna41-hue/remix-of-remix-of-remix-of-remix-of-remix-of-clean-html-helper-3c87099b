@@ -3,27 +3,30 @@ import { useEffect, useRef } from "react";
 
 import landingHtml from "../../public/mapa.html?raw";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
-import kitMockup from "@/assets/kit-mockup.png.asset.json";
-import mapa1 from "@/assets/mapa-1.png.asset.json";
-import mapa2 from "@/assets/mapa-2.png.asset.json";
-import mapa3 from "@/assets/mapa-3.png.asset.json";
-import mapa4 from "@/assets/mapa-4.png.asset.json";
-import mapa5 from "@/assets/mapa-5.png.asset.json";
-import mapa6 from "@/assets/mapa-6.png.asset.json";
-import depoimento1 from "@/assets/depoimento-1.png.asset.json";
-import depoimento2 from "@/assets/depoimento-2.png.asset.json";
-import depoimento3 from "@/assets/depoimento-3.png.asset.json";
-import depoimento4 from "@/assets/depoimento-4.png.asset.json";
-import bonus1 from "@/assets/bonus-1.png.asset.json";
-import bonus2 from "@/assets/bonus-2.png.asset.json";
-import bonus3 from "@/assets/bonus-3.png.asset.json";
-import bonus4 from "@/assets/bonus-4.png.asset.json";
-import bonus5 from "@/assets/bonus-5.png.asset.json";
-import avatar1 from "@/assets/avatar-1.jpg.asset.json";
-import avatar2 from "@/assets/avatar-2.jpg.asset.json";
-import avatar3 from "@/assets/avatar-3.jpg.asset.json";
-import avatar4 from "@/assets/avatar-4.jpg.asset.json";
-import avatar5 from "@/assets/avatar-5.jpg.asset.json";
+
+const img = (n: string) => ({ url: `/assets/${n}.webp` });
+
+const kitMockup = img("kit-mockup");
+const mapa1 = img("mapa-1");
+const mapa2 = img("mapa-2");
+const mapa3 = img("mapa-3");
+const mapa4 = img("mapa-4");
+const mapa5 = img("mapa-5");
+const mapa6 = img("mapa-6");
+const depoimento1 = img("depoimento-1");
+const depoimento2 = img("depoimento-2");
+const depoimento3 = img("depoimento-3");
+const depoimento4 = img("depoimento-4");
+const bonus1 = img("bonus-1");
+const bonus2 = img("bonus-2");
+const bonus3 = img("bonus-3");
+const bonus4 = img("bonus-4");
+const bonus5 = img("bonus-5");
+const avatar1 = img("avatar-1");
+const avatar2 = img("avatar-2");
+const avatar3 = img("avatar-3");
+const avatar4 = img("avatar-4");
+const avatar5 = img("avatar-5");
 
 const mapas = [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6].map((a) => a.url);
 const bonusImgs = [bonus1, bonus2, bonus3, bonus4, bonus5].map((a) => a.url);
@@ -146,7 +149,7 @@ function Index() {
 
   return (
     <div ref={containerRef}>
-      <div dangerouslySetInnerHTML={{ __html: beforeHtml }} />
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: beforeHtml }} />
 
       <section className="section section--dark">
         <div className="container">
@@ -176,7 +179,7 @@ function Index() {
         </div>
       </section>
 
-      <div dangerouslySetInnerHTML={{ __html: afterHtml }} />
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: afterHtml }} />
     </div>
   );
 }

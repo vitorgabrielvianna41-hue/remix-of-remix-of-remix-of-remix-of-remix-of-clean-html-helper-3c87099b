@@ -12,4 +12,6 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // On Netlify CI, build with the Netlify preset. Inside Lovable this option is ignored.
+  ...(process.env["NETLIFY"] ? { nitro: { preset: "netlify" } } : {}),
 });
