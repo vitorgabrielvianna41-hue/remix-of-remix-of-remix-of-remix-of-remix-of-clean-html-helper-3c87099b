@@ -4,23 +4,31 @@ import { useEffect, useRef } from "react";
 import landingHtml from "../../public/mapa.html?raw";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 
-const IMG = (n: string) => `/assets/${n}.webp`;
+const img = (n: string) => ({ url: `/assets/${n}.webp` });
 
-const kitMockup = { url: IMG("kit-mockup") };
-const [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6] = [1, 2, 3, 4, 5, 6].map((n) => ({
-  url: IMG(`mapa-${n}`),
-}));
-const [depoimento1, depoimento2, depoimento3, depoimento4] = [1, 2, 3, 4].map((n) => ({
-  url: IMG(`depoimento-${n}`),
-}));
-const [bonus1, bonus2, bonus3, bonus4, bonus5] = [1, 2, 3, 4, 5].map((n) => ({
-  url: IMG(`bonus-${n}`),
-}));
-const [avatar1, avatar2, avatar3, avatar4, avatar5] = [1, 2, 3, 4, 5].map((n) => ({
-  url: IMG(`avatar-${n}`),
-}));
+const kitMockup = img("kit-mockup");
+const mapa1 = img("mapa-1");
+const mapa2 = img("mapa-2");
+const mapa3 = img("mapa-3");
+const mapa4 = img("mapa-4");
+const mapa5 = img("mapa-5");
+const mapa6 = img("mapa-6");
+const depoimento1 = img("depoimento-1");
+const depoimento2 = img("depoimento-2");
+const depoimento3 = img("depoimento-3");
+const depoimento4 = img("depoimento-4");
+const bonus1 = img("bonus-1");
+const bonus2 = img("bonus-2");
+const bonus3 = img("bonus-3");
+const bonus4 = img("bonus-4");
+const bonus5 = img("bonus-5");
+const avatar1 = img("avatar-1");
+const avatar2 = img("avatar-2");
+const avatar3 = img("avatar-3");
+const avatar4 = img("avatar-4");
+const avatar5 = img("avatar-5");
 
-const mapas = [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6].map((a) => a!.url);
+const mapas = [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6].map((a) => a.url);
 const bonusImgs = [bonus1, bonus2, bonus3, bonus4, bonus5].map((a) => a.url);
 const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5].map((a) => a.url);
 
