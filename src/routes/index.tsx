@@ -179,7 +179,7 @@ function Index() {
         </div>
       </section>
 
-      <div dangerouslySetInnerHTML={{ __html: afterHtml }} />
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: afterHtml }} />
     </div>
   );
 }
