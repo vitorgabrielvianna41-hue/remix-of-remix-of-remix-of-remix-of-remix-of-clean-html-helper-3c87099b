@@ -3,29 +3,24 @@ import { useEffect, useRef } from "react";
 
 import landingHtml from "../../public/mapa.html?raw";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
-import kitMockup from "@/assets/kit-mockup.png.asset.json";
-import mapa1 from "@/assets/mapa-1.png.asset.json";
-import mapa2 from "@/assets/mapa-2.png.asset.json";
-import mapa3 from "@/assets/mapa-3.png.asset.json";
-import mapa4 from "@/assets/mapa-4.png.asset.json";
-import mapa5 from "@/assets/mapa-5.png.asset.json";
-import mapa6 from "@/assets/mapa-6.png.asset.json";
-import depoimento1 from "@/assets/depoimento-1.png.asset.json";
-import depoimento2 from "@/assets/depoimento-2.png.asset.json";
-import depoimento3 from "@/assets/depoimento-3.png.asset.json";
-import depoimento4 from "@/assets/depoimento-4.png.asset.json";
-import bonus1 from "@/assets/bonus-1.png.asset.json";
-import bonus2 from "@/assets/bonus-2.png.asset.json";
-import bonus3 from "@/assets/bonus-3.png.asset.json";
-import bonus4 from "@/assets/bonus-4.png.asset.json";
-import bonus5 from "@/assets/bonus-5.png.asset.json";
-import avatar1 from "@/assets/avatar-1.jpg.asset.json";
-import avatar2 from "@/assets/avatar-2.jpg.asset.json";
-import avatar3 from "@/assets/avatar-3.jpg.asset.json";
-import avatar4 from "@/assets/avatar-4.jpg.asset.json";
-import avatar5 from "@/assets/avatar-5.jpg.asset.json";
 
-const mapas = [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6].map((a) => a.url);
+const IMG = (n: string) => `/assets/${n}.webp`;
+
+const kitMockup = { url: IMG("kit-mockup") };
+const [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6] = [1, 2, 3, 4, 5, 6].map((n) => ({
+  url: IMG(`mapa-${n}`),
+}));
+const [depoimento1, depoimento2, depoimento3, depoimento4] = [1, 2, 3, 4].map((n) => ({
+  url: IMG(`depoimento-${n}`),
+}));
+const [bonus1, bonus2, bonus3, bonus4, bonus5] = [1, 2, 3, 4, 5].map((n) => ({
+  url: IMG(`bonus-${n}`),
+}));
+const [avatar1, avatar2, avatar3, avatar4, avatar5] = [1, 2, 3, 4, 5].map((n) => ({
+  url: IMG(`avatar-${n}`),
+}));
+
+const mapas = [mapa1, mapa2, mapa3, mapa4, mapa5, mapa6].map((a) => a!.url);
 const bonusImgs = [bonus1, bonus2, bonus3, bonus4, bonus5].map((a) => a.url);
 const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5].map((a) => a.url);
 
