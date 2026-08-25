@@ -149,7 +149,7 @@ function Index() {
 
   return (
     <div ref={containerRef}>
-      <div dangerouslySetInnerHTML={{ __html: beforeHtml }} />
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: beforeHtml }} />
 
       <section className="section section--dark">
         <div className="container">
